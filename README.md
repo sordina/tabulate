@@ -10,12 +10,12 @@ Tabulate Text
 
     > cat | tabulate '='
     asdf = qwer
-    whatever=foo
+    whatever =foo
     1=2
     abc  = def
     ^D
 
-    asdf    = qwer
-    whatever=foo
-    1       =2
-    abc     = def
+    asdf     = qwer
+    whatever =foo
+    1        =2
+    abc      = def
