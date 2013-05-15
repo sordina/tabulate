@@ -15,6 +15,8 @@ Tabulate Text
     abc  = def
     ^D
 
+### Output
+
     asdf     = qwer
     whatever = foo
     1        = 2
