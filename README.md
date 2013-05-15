@@ -23,3 +23,7 @@ Tabulate Text
     whatever = foo
     1        = 2
     abc      = def
+
+## Known Bugs
+
+* All lines should have the same number of delimiters
