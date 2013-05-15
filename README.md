@@ -6,6 +6,8 @@ Tabulate Text
 
      tabulate [delimiter]
 
+* The default delimiter is "\t"
+
 ## Example
 
     > cat | tabulate '='
