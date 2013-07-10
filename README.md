@@ -3,7 +3,7 @@
 Tabulate Text
 
 ## Binary for OS X 10.7.5
-[http://sordina.binaries.s3.amazonaws.com/tabulate](http://sordina.binaries.s3.amazonaws.com/tabulate)http://sordina.binaries.s3.amazonaws.com/tabulate)
+[http://sordina.binaries.s3.amazonaws.com/tabulate](http://sordina.binaries.s3.amazonaws.com/tabulate)
 
 ## Usage
 
