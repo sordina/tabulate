@@ -15,4 +15,4 @@ cabal-version:       >=1.8
 
 executable tabulate
   main-is:       tabulate.hs
-  build-depends: base ==4.6.*, text
+  build-depends: base >=4.6, text
