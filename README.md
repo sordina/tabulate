@@ -1,15 +1,12 @@
 # \\t\\t\\t tabulate \\t\\t\\t
 
+![A Table](http://i.imgur.com/Ub328Ag.png)
+
 Tabulate Text
-
-## Binary for OS X 10.7.5
-
-* <http://sordina.binaries.s3.amazonaws.com/tabulate-0.2.0.0-MacOSX-10.9.5-13F34.zip>
-* <http://sordina.binaries.s3.amazonaws.com/tabulate>
 
 ## Usage
 
-     tabulate [delimiter]
+     tabulate [-h|--help] [--] [delimiter] [joiner]
 
 * The default delimiter is `\t`
 
@@ -29,6 +26,8 @@ Tabulate Text
     1        = 2
     abc      = def
 
-## Known Bugs
+## Binaries
 
-* All lines should have the same number of delimiters
+* <http://sordina.binaries.s3.amazonaws.com/tabulate-0.3.0.0-MacOSX-10.9.5-13F34.zip>
+* <http://sordina.binaries.s3.amazonaws.com/tabulate-0.2.0.0-MacOSX-10.9.5-13F34.zip>
+* <http://sordina.binaries.s3.amazonaws.com/tabulate>

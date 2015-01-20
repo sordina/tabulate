@@ -1,6 +1,6 @@
 {-# Language OverloadedStrings #-}
 
-import Control.Arrow      ((&&&), (***), (>>>))
+import Control.Arrow      ((&&&), first, (>>>))
 import System.Environment (getArgs)
 
 import qualified Data.List    as L
@@ -11,29 +11,40 @@ main :: IO ()
 main = getArgs >>= run
 
 run :: [String] -> IO ()
-run []    = run ["\t"]
-run [sep] = exec (T.pack sep)
-run _     = putStrLn "Usage: tabulate [delimiter]"
+run []                    = exec "\t" "\t"
+run ["-h"]                = help
+run ["--help"]            = help
+run ["--", sep]           = exec (T.pack sep  ) (T.pack sep   )
+run ["--", inSep, outSep] = exec (T.pack inSep) (T.pack outSep)
+run [sep]                 = exec (T.pack sep  ) (T.pack sep   )
+run [inSep, outSep]       = exec (T.pack inSep) (T.pack outSep)
+run _                     = help
 
-exec :: T.Text -> IO ()
-exec sep = T.interact tabulate where
+help :: IO ()
+help = putStrLn "Usage: tabulate [-h|--help] [--] [delimiter] [joiner]"
 
-  tabulate           = rows
+exec :: T.Text -> T.Text -> IO ()
+exec inSep outSep = T.interact tabulate where
+
+  tabulate           = T.lines
+                   >>> map splitRow
                    >>> (map L.length &&& id)
-                   >>> (fst &&& pipeline)
+                   >>> (fst &&& rectangle)
                    >>> uncurry (zipWith L.take)
-                   >>> unrows
+                   >>> map joinRow
+                   >>> T.unlines
 
-  pipeline           = (maximum *** id)
+  rectangle          = first maximum
                    >>> uncurry strip
-                   >>> columns
+                   >>> toColumns
                    >>> (lengths &&& id)
-                   >>> uncurry (zipWith uncolumns)
-                   >>> L.transpose
+                   >>> uncurry (zipWith justify)
+                   >>> toRows
 
-  rows               = T.lines >>> map (T.splitOn sep)
+  splitRow           = T.splitOn inSep
   strip num          = map ((++ L.repeat "") >>> L.take num)
-  columns            = L.transpose
+  toColumns          = L.transpose
+  toRows             = L.transpose
   lengths            = map (map T.length >>> maximum)
-  uncolumns width    = map (T.justifyLeft width ' ')
-  unrows             = map (T.intercalate sep >>> T.stripEnd) >>> T.unlines
+  justify width      = map (T.justifyLeft width ' ')
+  joinRow            = T.intercalate outSep >>> T.stripEnd
