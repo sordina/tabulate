@@ -14,17 +14,17 @@ run :: [String] -> IO ()
 run []                    = exec "\t" "\t"
 run ["-h"]                = help
 run ["--help"]            = help
-run ["--", sep]           = exec (T.pack sep  ) (T.pack sep   )
-run ["--", inSep, outSep] = exec (T.pack inSep) (T.pack outSep)
-run [sep]                 = exec (T.pack sep  ) (T.pack sep   )
-run [inSep, outSep]       = exec (T.pack inSep) (T.pack outSep)
+run ["--", sep]           = exec sep   sep
+run ["--", inSep, outSep] = exec inSep outSep
+run [sep]                 = exec sep   sep
+run [inSep, outSep]       = exec inSep outSep
 run _                     = help
 
 help :: IO ()
 help = putStrLn "Usage: tabulate [-h|--help] [--] [delimiter] [joiner]"
 
-exec :: T.Text -> T.Text -> IO ()
-exec inSep outSep = T.interact tabulate where
+exec :: String -> String -> IO ()
+exec inSepS outSepS = T.interact tabulate where
 
   tabulate           = T.lines
                    >>> map splitRow
@@ -48,3 +48,5 @@ exec inSep outSep = T.interact tabulate where
   lengths            = map (map T.length >>> maximum)
   justify width      = map (T.justifyLeft width ' ')
   joinRow            = T.intercalate outSep >>> T.stripEnd
+  inSep              = T.pack inSepS
+  outSep             = T.pack outSepS
